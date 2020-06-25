@@ -1,0 +1,16 @@
+select * from facts;
+select * from facts limit 5;
+select min(population),max(population),min(population_growth),max(population_growth) from facts;
+select * from facts where population=(select min(population) from facts);
+select * from facts where population=(select max(population) from facts);
+select * from facts where population not in ((select min(population) from facts),
+        (select max(population) from facts),(select max(population_growth) from facts), 
+        (select min(population_growth) from facts));
+        
+select min(population),max(population),min(population_growth),max(population_growth) from facts where name <> 'World';
+
+select avg(population),avg(area) from facts; --where name <> 'World';
+
+select * from facts 
+        where population>(select avg(population)from facts) 
+        and area <       (select avg(area) from facts) ;
